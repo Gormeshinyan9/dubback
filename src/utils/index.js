@@ -1,0 +1,1 @@
+exports.mailTransporter = require("./mailTransporter");

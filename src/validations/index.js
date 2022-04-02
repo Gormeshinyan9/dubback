@@ -1,0 +1,1 @@
+exports.mailValidations = require("./mail");

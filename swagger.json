@@ -1,0 +1,124 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This api is built for sending self-emails.",
+    "version": "1.0.0",
+    "title": "Mail API"
+  },
+  "basePath": "/api",
+  "host": "[api-url]",
+  "tags": [{ "name": "Mail" }],
+  "paths": {
+    "/mail/info": {
+      "post": {
+        "summary": "Send info email",
+        "tags": ["Mail"],
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "form-data",
+            "name": "name",
+            "type": "string",
+            "example": "John Smith",
+            "required": true
+          },
+          {
+            "in": "form-data",
+            "name": "phone",
+            "type": "string",
+            "example": "+374 99 748218",
+            "required": true
+          },
+          {
+            "in": "form-data",
+            "name": "country",
+            "type": "string",
+            "example": "Armenia",
+            "required": true
+          },
+          {
+            "in": "form-data",
+            "name": "brand",
+            "type": "string",
+            "example": "Brand Name",
+            "required": true
+          },
+          {
+            "in": "form-data",
+            "name": "instagram",
+            "type": "string",
+            "example": "https://instagram.com/...",
+            "required": true
+          },
+          {
+            "in": "form-data",
+            "name": "price",
+            "type": "string",
+            "example": "40000 AMD",
+            "required": true
+          },
+          {
+            "in": "form-data",
+            "name": "email",
+            "type": "string",
+            "example": "johnsmith@gmail.com",
+            "required": true
+          },
+          {
+            "in": "form-data",
+            "name": "picture",
+            "type": "array",
+            "items": {
+              "type": "file"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Email was successfully sent.",
+            "schema": { "$ref": "#/definitions/SuccessResponse" }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": { "$ref": "#/definitions/ErrorsResponse" }
+          },
+          "500": {
+            "description": "Something went wrong while sending the email.",
+            "schema": { "$ref": "#/definitions/ErrorsResponse" }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ErrorsResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "[field]": {
+                "type": "string",
+                "example": "incorrect value"
+              }
+            }
+          },
+          "example": [{ "[field]": "[message]" }]
+        }
+      }
+    },
+    "SuccessResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    }
+  }
+}

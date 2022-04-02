@@ -1,0 +1,1 @@
+exports.mailRouter = require("./mail");

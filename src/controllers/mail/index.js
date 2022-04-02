@@ -1,0 +1,1 @@
+exports.sendInfoMail = require("./sendInfoMail");

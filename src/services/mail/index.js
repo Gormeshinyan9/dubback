@@ -1,0 +1,1 @@
+exports.sendSelfMail = require("./sendSelfMail");
