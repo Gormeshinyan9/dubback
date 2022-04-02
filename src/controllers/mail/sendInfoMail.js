@@ -1,4 +1,5 @@
 const { mailServices } = require("../../services");
+const { MAIL_SENDER_EMAIL } = require("../../config");
 
 const sendInfoMail = async (req, res) => {
   try {
@@ -9,8 +10,7 @@ const sendInfoMail = async (req, res) => {
 
     const subject = "Info Mail";
 
-    const html = `
-      <h1>Info</h1>
+    const htmlBody = `
       <p>Name: ${name}</p>
       <p>Phone: <a href="tel:${phoneWithoutSpaces}">${phone}<a/></p>
       <p>Country: ${country}</p>
@@ -20,13 +20,31 @@ const sendInfoMail = async (req, res) => {
       <p>Email: <a href="mailto:${email}">${email}</a></p>
     `;
 
+    const html = `
+      <h1>Order Info</h1>
+      ${htmlBody}
+    `;
+
+    const clientHTML = `
+      <h1>Order Successful</h1>
+      ${htmlBody}
+    `;
+
     const attachments = images.map((file) => ({
       content: file,
       filename: file.originalname,
     }));
 
-    await mailServices.sendSelfMail({
+    await mailServices.sendMail({
+      to: MAIL_SENDER_EMAIL,
       html,
+      subject,
+      attachments,
+    });
+
+    await mailServices.sendMail({
+      to: email,
+      html: clientHTML,
       subject,
       attachments,
     });

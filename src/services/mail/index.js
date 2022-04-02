@@ -1,1 +1,1 @@
-exports.sendSelfMail = require("./sendSelfMail");
+exports.sendMail = require("./sendMail");
